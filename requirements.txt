@@ -1,0 +1,12 @@
+kagglehub
+nltk
+snowballstemmer
+torch
+scikit-learn
+seaborn
+matplotlib
+pandas
+transformers
+tqdm
+copy
+gradio
