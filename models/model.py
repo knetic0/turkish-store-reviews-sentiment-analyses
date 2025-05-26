@@ -8,6 +8,7 @@ import nltk
 from nltk.corpus import stopwords
 import snowballstemmer
 from models.vocab import Vocab
+import json
 
 stemmer = snowballstemmer.stemmer("turkish")
 nltk.download("stopwords")
@@ -22,12 +23,17 @@ class Model:
         self.itos_path      = os.path.join(self.model_dir, "itos.pkl")
         self.device         = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.label_map      = { "Positive": 0, "Notr": 1, "Negative": 2 }
+        self.config_path    = os.path.join(self.model_dir, "config.json")
 
         with open(self.stoi_path, "rb") as f:
             stoi = pickle.load(f)
         with open(self.itos_path, "rb") as f:
             itos = pickle.load(f)
+        
         self.vocab = Vocab.from_dicts(stoi, itos)
+
+        with open(self.config_path, "r") as f:
+            self.config = json.load(f)
 
     def load(self):
         module_path = f"models.{self.model_dir_name}.algorithm"
@@ -36,12 +42,12 @@ class Model:
 
         self.model = AlgClass(
             vocab_size = len(self.vocab),
-            emb_dim     = 100,
-            hid_dim     = 128,
+            emb_dim     = self.config.get("emb_dim", 100),
+            hid_dim     = self.config.get("hid_dim", 128),
             out_dim     = len(self.label_map),
             pad_idx     = self.vocab["<pad>"],
-            n_layers    = 2,
-            dropout     = 0.3
+            n_layers    = self.config.get("n_layers", 1),
+            dropout     = self.config.get("dropout", 0.5),
         ).to(self.device)
 
         state = torch.load(self.model_path, map_location=self.device)

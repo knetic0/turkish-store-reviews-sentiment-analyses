@@ -1,7 +1,4 @@
-import torch
 import torch.nn as nn
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class Algorithm(nn.Module):
     def __init__(self, vocab_size, emb_dim, hid_dim, out_dim, pad_idx, n_layers=1, dropout=0.5):
