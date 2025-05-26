@@ -104,49 +104,116 @@ class GRUClassifier(nn.Module):  # GRU tabanlı sınıflandırıcı sınıfı
         return self.fc(h)  # Çıktıyı sınıflandırma katmanından geçir ve döndür
 ```
 
+## 🌐 Eğitim Parametreleri
+
+**1. Bidirectional LSTM Parametreleri**
+
+| Parameter | Değer |
+|-----------|-------|
+| Learning rate | 1e-3 |
+| Batch size | 128 |
+| Maximum epochs | 5 |
+| Loss function | Sınıf ağırlıklı Cross-Entropy Loss |
+| Optimizer | Adam |
+| Maximum sequence length | 128 token |
+| Device | CUDA (mevcut ise) / CPU |
+
+**2. LSTM Parametreleri**
+
+| Parameter | Değer |
+|-----------|-------|
+| Learning rate | 1e-3 |
+| Batch size | 128 |
+| Maximum epochs | 10 |
+| Loss function | Sınıf ağırlıklı Cross-Entropy Loss |
+| Optimizer | Adam |
+| Maximum sequence length | 128 token |
+| Device | CUDA (mevcut ise) / CPU |
+
+**3. GRU Parametreleri**
+
+| Parameter | Değer |
+|-----------|-------|
+| Learning rate | 1e-3 |
+| Batch size | 64 |
+| Maximum epochs | 15 |
+| Early stopping patience | 2 |
+| Loss function | Sınıf ağırlıklı Cross-Entropy Loss |
+| Optimizer | Adam |
+| Maximum sequence length | 128 token |
+| Device | CUDA (mevcut ise) / CPU |
+
 ## 📈 Eğitim Raporları
 
 **1. Bidirectional LSTM Raporları**
 
-![Epoch 1](/images/bidirectional-lstm-epoch-1.png)
+![Bidirectional LSTM Confusion Matrix](/images/bidirectional-lstm-confusion-matrix.png)
 
-![Epoch 2](/images/bidirectional-lstm-epoch-2.png)
-
-![Epoch 3](/images/bidirectional-lstm-epoch-3.png)
-
-![Epoch 4](/images/bidirectional-lstm-epoch-4.png)
-
-![Epoch 5](/images/bidirectional-lstm-epoch-5.png)
+| Class           | Precision | Recall | F1-Score | Support |
+|-----------------|-----------|--------|----------|--------:|
+| 0               | 0.94      | 0.96   | 0.95     |   26209 |
+| 1               | 0.97      | 0.99   | 0.98     |   17087 |
+| 2               | 0.86      | 0.74   | 0.79     |    5655 |
+| **Accuracy**    |           |        | **0.94** |   48951 |
+| **Macro Avg**   | 0.92      | 0.89   | 0.91     |   48951 |
+| **Weighted Avg**| 0.94      | 0.94   | 0.94     |   48951 |
 
 **2. LSTM Raporları**
 
-![Epoch 1](/images/lstm-epoch-1.png)
+![LSTM Confusion Matrix](/images/lstm-confusion-matrix.png)
 
-![Epoch 2](/images/lstm-epoch-2.png)
+| Class           | Precision | Recall | F1-Score | Support |
+|-----------------|-----------|--------|----------|--------:|
+| 0               | 0.94      | 0.96   | 0.95     |   26209 |
+| 1               | 0.97      | 0.98   | 0.98     |   17087 |
+| 2               | 0.86      | 0.74   | 0.80     |    5655 |
+| **Accuracy**    |           |        | **0.94** |   48951 |
+| **Macro Avg**   | 0.92      | 0.89   | 0.91     |   48951 |
+| **Weighted Avg**| 0.94      | 0.94   | 0.94     |   48951 |
 
-![Epoch 3](/images/lstm-epoch-3.png)
-
-![Epoch 4](/images/lstm-epoch-4.png)
-
-![Epoch 5](/images/lstm-epoch-5.png)
-
-![Epoch 6](/images/lstm-epoch-6.png)
-
-![Epoch 7](/images/lstm-epoch-7.png)
-
-![Epoch 8](/images/lstm-epoch-8.png)
-
-![Epoch 9](/images/lstm-epoch-9.png)
-
-![Epoch 10](/images/lstm-epoch-10.png)
 
 **3. GRU Raporları**
 
-![GRU Reports](/images/gru-reports.png)
-
-![GRU Classification Report](/images/gru-classification-report.png)
-
 ![GRU Confusion Matrix](/images/gru-confusion-matrix.png)
+
+| Class            | Precision | Recall | F1-Score | Support |
+|------------------|-----------|--------|----------|--------:|
+| Negative         | 0.75      | 0.86   | 0.80     |    5656 |
+| Notr             | 0.99      | 0.99   | 0.99     |   17092 |
+| Positive         | 0.97      | 0.94   | 0.95     |   26217 |
+| **Accuracy**     |           |        | **0.95** |   48965 |
+| **Macro Avg**    | 0.90      | 0.93   | 0.92     |   48965 |
+| **Weighted Avg** | 0.95      | 0.95   | 0.95     |   48965 |
+
+## ⚡️ Çalışma Bilgileri
+
+**1. Bidirectional LSTM Çalışma Bilgileri**
+
+| Aspect | Detaylar |
+|--------|----------|
+| Hardware | Google Colab A100 GPU |
+| Training time | 541.147 Saniye Yaklaşık olarak 9,02 Dakika |
+| Training monitoring | Her epoch sonrasında Doğruluk, F1, Kesinlik ve Geri Çağırma hesaplanır |
+| Model saving | En iyi model doğrulama F1 skoruna göre kaydedilir |
+
+**2. LSTM Çalışma Bilgileri**
+
+| Aspect | Detaylar |
+|--------|----------|
+| Hardware | Google Colab T4 GPU |
+| Training time | 793.126 Saniye Yaklaşık Olarak 13.2188 Dakika |
+| Training monitoring | Her epoch sonrasında Doğruluk, F1, Kesinlik ve Geri Çağırma hesaplanır |
+| Model saving | En iyi model doğrulama F1 skoruna göre kaydedilir |
+
+**3. GRU Çalışma Bilgileri**
+
+| Aspect | Detaylar |
+|--------|----------|
+| Hardware | Google Colab A100 GPU |
+| Training time | 16 dakika 21 saniye |
+| Early stopping | F1 skoru 2 ardışık epoch boyunca iyileşmezse etkinleşir |
+| Training monitoring | Her epoch sonrasında Doğruluk, F1, Kesinlik ve Geri Çağırma hesaplanır |
+| Model saving | En iyi model doğrulama F1 skoruna göre kaydedilir |
 
 ## 🌐 Dosya Yapısı
 
