@@ -6,7 +6,7 @@ mında ise Gradio kullanılmıştır. Kullanıcı istediği model'i seçebilir v
 
 ## 🚀 Arayüz
 
-![Kullanıcı Arayüzü](/images/ui.png)
+![Kullanıcı Arayüzü](/images/ui-image.png)
 
 ## 🔥 Kullanılan Algoritmalar
 
