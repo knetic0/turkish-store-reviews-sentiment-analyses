@@ -8,5 +8,4 @@ matplotlib
 pandas
 transformers
 tqdm
-copy
 gradio
