@@ -26,11 +26,27 @@ mında ise Gradio kullanılmıştır. Kullanıcı istediği model'i seçebilir v
 
 ## 📈 Kullanılan Veri Seti
 
-Modelin eğitimi sırasında yaklaşık olarak 450.000 veri, testinde ise 50.000 veri kullanılmıştır.
+Modelin eğitimi sırasında 440.679 veri, testinde ise 48.965 veri kullanılmıştır.
 
 ![Dataset](/images/dataset-example.png)
 
 Bu görsel veri setinin ilk 5 satırını gösteriyor. Veri seti 3 adet sütundan oluşmaktadır. Bu sütunlar text, label, dataset olarak nitelendirilmiştir. Burada bizi ilgilendiren kısım text ve label'dır.
+
+### Eğitim Veri Seti
+
+| Column  | Non-Null Count   | Dtype  |
+| ------- | ---------------- | ------ |
+| text    | 440679 non-null  | object |
+| label   | 440679 non-null  | object |
+| dataset | 440679 non-null  | object |
+
+### Test Veri Seti
+
+| Column  | Non-Null Count   | Dtype  |
+| ------- | ---------------- | ------ |
+| text    | 48965 non-null   | object |
+| label   | 48965 non-null   | object |
+| dataset | 48965 non-null   | object |
 
 [Bu link ile veri setine erişebilirsiniz!](https://www.kaggle.com/datasets/winvoker/turkishsentimentanalysisdataset)
 
