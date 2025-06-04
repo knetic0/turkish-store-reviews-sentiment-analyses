@@ -8,6 +8,14 @@ mında ise Gradio kullanılmıştır. Kullanıcı istediği model'i seçebilir v
 
 ![Kullanıcı Arayüzü](/images/ui-image.png)
 
+## Emeği Geçenler
+
+| Numarası                  | Adı - Soyadı    |
+|---------------------------|-----------------|
+| **20217170006**           | Atakan CANBAKIŞ |
+| **20217170022**           | Mehmet SOLAK    |
+| **20217170050**           | Doğukan AKSOY   |
+
 ## 🔥 Kullanılan Algoritmalar
 
 1. **LSTM**
