@@ -34,19 +34,41 @@ Bu görsel veri setinin ilk 5 satırını gösteriyor. Veri seti 3 adet sütunda
 
 ### Eğitim Veri Seti
 
+**Veri Seti Bilgisi**
+
 | Column  | Non-Null Count   | Dtype  |
 | ------- | ---------------- | ------ |
 | text    | 440679 non-null  | object |
 | label   | 440679 non-null  | object |
 | dataset | 440679 non-null  | object |
 
+**Veri Seti Açıklaması**
+
+| Statistic | text       | label     | dataset           |
+|-----------|------------|-----------|-------------------|
+| count     | 440679     | 440679    | 440679            |
+| unique    | 440058     | 3         | 6                 |
+| top       | Memnun kaldık. | Positive | urun_yorumlari |
+| freq      | 17         | 235949    | 210693            |
+
 ### Test Veri Seti
+
+**Veri Seti Bilgisi**
 
 | Column  | Non-Null Count   | Dtype  |
 | ------- | ---------------- | ------ |
 | text    | 48965 non-null   | object |
 | label   | 48965 non-null   | object |
 | dataset | 48965 non-null   | object |
+
+**Veri Seti Açıklaması**
+
+| Statistic | text        | label    | dataset           |
+|-----------|-------------|----------|-------------------|
+| count     | 48965       | 48965    | 48965             |
+| unique    | 48948       | 3        | 6                 |
+| top       | Çok iyiydi. | Positive | urun_yorumlari    |
+| freq      | 4           | 26217    | 23490             |
 
 [Bu link ile veri setine erişebilirsiniz!](https://www.kaggle.com/datasets/winvoker/turkishsentimentanalysisdataset)
 
