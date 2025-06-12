@@ -1,8 +1,7 @@
 # 📝 Türkçe Ürün Yorumları Duygu Analizi
 
 Bu proje, Türkçe ürün yorumlarının duygu analizini (Pozitif mi? Nötr mü? yoksa Negatif mi?) yapan ve arka plan'da birçok derin öğrenme
-algoritması barındıran bir projedir. LSTM, Bidirectional LSTM, GRU algoritmalarıyla eğitilen birden fazla model kullanılabilir. UI Kıs
-mında ise Gradio kullanılmıştır. Kullanıcı istediği model'i seçebilir ve ardından yorum girip yorumun analizini yapabilir.
+algoritması barındıran bir projedir. LSTM, Bidirectional LSTM, GRU algoritmalarıyla eğitilen birden fazla model kullanılabilir. UI Kısmında ise Gradio kullanılmıştır. Kullanıcı istediği model'i seçebilir ve ardından yorum girip yorumun analizini yapabilir.
 
 ## 🚀 Arayüz
 
