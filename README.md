@@ -8,7 +8,7 @@ mında ise Gradio kullanılmıştır. Kullanıcı istediği model'i seçebilir v
 
 ![Kullanıcı Arayüzü](/images/ui-image.png)
 
-## Emeği Geçenler
+## Grup Üyeleri
 
 | Numarası                  | Adı - Soyadı    |
 |---------------------------|-----------------|
