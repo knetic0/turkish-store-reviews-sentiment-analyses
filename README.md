@@ -24,6 +24,8 @@ mında ise Gradio kullanılmıştır. Kullanıcı istediği model'i seçebilir v
 
 3. **GRU**
 
+4. **Balanced GRU**
+
 ## 📈 Kullanılan Veri Seti
 
 Modelin eğitimi sırasında 440.679 veri, testinde ise 48.965 veri kullanılmıştır.
@@ -150,6 +152,25 @@ class GRUClassifier(nn.Module):  # GRU tabanlı sınıflandırıcı sınıfı
         return self.fc(h)  # Çıktıyı sınıflandırma katmanından geçir ve döndür
 ```
 
+**4. Balanced GRU Algoritması Ayarları**
+
+```python
+class Algorithm(nn.Module):  # Balanced GRU sınıfı, yapılandırılabilir parametrelerle
+    def __init__(self, vocab_size, emb_dim, hid_dim, out_dim, pad_idx, n_layers=1, dropout=0.3):  # Yapıcı metot, modelin genel ayarlarını yapar
+        super().__init__()  # Üst sınıfın yapıcısını çağırır
+        self.embedding = nn.Embedding(vocab_size, emb_dim, padding_idx=pad_idx)  # Giriş metinlerini sayısal vektörlere dönüştürür
+        self.gru = nn.GRU(emb_dim, hid_dim, batch_first=True, bidirectional=True)  # İki yönlü (bidirectional) GRU katmanı tanımla
+        self.dropout = nn.Dropout(dropout)  # Overfitting'i önlemek için dropout uygula
+        self.fc = nn.Linear(hid_dim * 2, out_dim)  # Çift yönlü GRU çıktısını sınıflandırma katmanına aktar
+
+    def forward(self, x, lengths):  # Modelin ileri yayılım fonksiyonu
+        embedded = self.embedding(x)  # Girişleri embedding katmanından geçir
+        packed = nn.utils.rnn.pack_padded_sequence(embedded, lengths.cpu(), batch_first=True, enforce_sorted=False)  # Değişken uzunluktaki dizileri paketle
+        _, h = self.gru(packed)  # GRU katmanından çıktı al, yalnızca gizli durum kullan
+        h = torch.cat((h[-2], h[-1]), dim=1)  # İleri ve geri yönlü son katmanları birleştir
+        return self.fc(self.dropout(h))  # Dropout sonrası çıktıyı sınıflandırma katmanından geçir ve döndür
+```
+
 ## 🌐 Eğitim Parametreleri
 
 **1. Bidirectional LSTM Parametreleri**
@@ -187,6 +208,22 @@ class GRUClassifier(nn.Module):  # GRU tabanlı sınıflandırıcı sınıfı
 | Loss function | Sınıf ağırlıklı Cross-Entropy Loss |
 | Optimizer | Adam |
 | Maximum sequence length | 128 token |
+| Device | CUDA (mevcut ise) / CPU |
+
+**4. Balanced GRU Parametreleri**
+
+| Parameter | Değer |
+|-----------|-------|
+| Learning rate | 1e-3 |
+| Batch size | 64 |
+| Maximum epochs | 10 |
+| Early stopping patience | 3 |
+| Loss function | Cross-Entropy Loss |
+| Optimizer | Adam |
+| Maximum vocabulary size | 20,000 token |
+| Embedding dimension | 128 |
+| Hidden dimension | 128 |
+| Dropout | 0.3 |
 | Device | CUDA (mevcut ise) / CPU |
 
 ## 📈 Eğitim Raporları
@@ -231,6 +268,19 @@ class GRUClassifier(nn.Module):  # GRU tabanlı sınıflandırıcı sınıfı
 | **Macro Avg**    | 0.90      | 0.93   | 0.92     |   48965 |
 | **Weighted Avg** | 0.95      | 0.95   | 0.95     |   48965 |
 
+**4. Balanced GRU Raporları**
+
+![Balanced GRU Confusion Matrix](/images/balanced-gru-confusion-matrix.png)
+
+| Class           | Precision | Recall | F1-Score | Support |
+|-----------------|-----------|--------|----------|--------:|
+| 0               | 0.93      | 0.95   | 0.94     |   10072 |
+| 1               | 0.99      | 0.98   | 0.98     |   10031 |
+| 2               | 0.83      | 0.93   | 0.93     |    9897 |
+| **Accuracy**    |           |        | **0.95** |   30000 |
+| **Macro Avg**   | 0.95      | 0.95   | 0.95     |   30000 |
+| **Weighted Avg**| 0.95      | 0.95   | 0.95     |   30000 |
+
 ## ⚡️ Çalışma Bilgileri
 
 **1. Bidirectional LSTM Çalışma Bilgileri**
@@ -238,7 +288,7 @@ class GRUClassifier(nn.Module):  # GRU tabanlı sınıflandırıcı sınıfı
 | Aspect | Detaylar |
 |--------|----------|
 | Hardware | Google Colab A100 GPU |
-| Training time | 541.147 Saniye Yaklaşık olarak 9,02 Dakika |
+| Training time | 541.147 Saniye Yaklaşık 9,02 Dakika |
 | Training monitoring | Her epoch sonrasında Doğruluk, F1, Kesinlik ve Geri Çağırma hesaplanır |
 | Model saving | En iyi model doğrulama F1 skoruna göre kaydedilir |
 
@@ -274,6 +324,16 @@ class GRUClassifier(nn.Module):  # GRU tabanlı sınıflandırıcı sınıfı
 │        ├── model.pth                                      # Eğitilmiş model dosyası
 │        ├── stoi.pkl                                       # string-to-index sözlüğü
 │──── lstm/                                                
+│        ├── algorithm.py
+│        ├── itos.pkl
+│        ├── model.pth
+│        ├── stoi.pkl
+│──── gru/
+│        ├── algorithm.py
+│        ├── itos.pkl
+│        ├── model.pth
+│        ├── stoi.pkl
+│──── balanced_gru/
 │        ├── algorithm.py
 │        ├── itos.pkl
 │        ├── model.pth

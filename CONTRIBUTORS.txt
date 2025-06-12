@@ -3,5 +3,5 @@ to the public version of Turkish Store Reviews Sentiment Analysis Application.
 
 Original Turkish Store Reviews Sentiment Analysis Application design and implementation:
     Mehmet Solak <solakmehmet02@gmail.com>
-    Doğukan Aksoy <dgnk6606@gmail.com>
+    Doğukan Aksoy <dogukan.aksoyy0@gmail.com>
     Atakan Canbakış <atakancanbakis98@gmail.com>
